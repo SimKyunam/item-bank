@@ -24,6 +24,8 @@ public class UserRequest {
 
         private UserStatus status;
 
+        private String name;
+
         private String email;
 
         private String phoneNumber;

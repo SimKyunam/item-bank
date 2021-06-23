@@ -130,6 +130,7 @@ public class UserService extends BaseService<UserRequest.Base, UserResponse.Base
                 .id(user.getId())
                 .account(user.getAccount())
                 .password(user.getPassword())
+                .name(user.getName())
                 .email(user.getEmail())
                 .phoneNumber(user.getPhoneNumber())
                 .status(user.getStatus())

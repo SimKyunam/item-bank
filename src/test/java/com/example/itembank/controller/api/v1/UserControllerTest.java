@@ -80,8 +80,8 @@ class UserControllerTest {
 
     @Test
     public void create() throws Exception {
-        Header mockUserRequest = Header.builder().data(user).build();
-        given(userService.create(any())).willReturn(mockUserRequest);
+        Header mockUserResponse = Header.builder().data(user).build();
+        given(userService.create(any())).willReturn(mockUserResponse);
 
         mvc.perform(post("/v1/api/user")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -89,7 +89,6 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("장그레")));
     }
-
 
     public UserResponse.Base response(User user){
         //user -> userApiResponse

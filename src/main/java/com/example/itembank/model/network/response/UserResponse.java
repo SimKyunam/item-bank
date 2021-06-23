@@ -24,6 +24,8 @@ public class UserResponse {
 
         private UserStatus status;
 
+        private String name;
+
         private String email;
 
         private String phoneNumber;

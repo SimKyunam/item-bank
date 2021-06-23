@@ -12,5 +12,7 @@ public abstract class BaseService<Req, Res, Entity> implements ServiceInterface<
     @Autowired(required = false)
     protected JpaRepository<Entity, Long> baseRepository;
 
-
+    public void setBaseRepository(JpaRepository<Entity, Long> baseRepository) {
+        this.baseRepository = baseRepository;
+    }
 }

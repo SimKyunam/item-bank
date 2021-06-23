@@ -10,6 +10,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Component
@@ -20,7 +21,7 @@ public abstract class BaseController<Req, Res, Entity> implements CrudInterface<
 
     @Override
     @PostMapping("")
-    public Header<Res> create(@RequestBody Header<Req> request) {
+    public Header<Res> create(@Valid @RequestBody Header<Req> request) {
         return baseService.create(request);
     }
 
@@ -32,7 +33,7 @@ public abstract class BaseController<Req, Res, Entity> implements CrudInterface<
 
     @Override
     @PutMapping("")
-    public Header<Res> update(@RequestBody Header<Req> request) {
+    public Header<Res> update(@Valid @RequestBody Header<Req> request) {
         return baseService.update(request);
     }
 
