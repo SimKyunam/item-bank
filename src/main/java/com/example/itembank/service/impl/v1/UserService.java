@@ -1,6 +1,6 @@
 package com.example.itembank.service.impl.v1;
 
-import com.example.itembank.model.entity.User;
+import com.example.itembank.model.entity.v1.User;
 import com.example.itembank.model.enumclass.UserStatus;
 import com.example.itembank.model.network.Header;
 import com.example.itembank.model.network.Pagination;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Pageable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -60,7 +59,6 @@ public class UserService extends BaseService<UserRequest.Base, UserResponse.Base
                     return Header.ERROR("데이터 없음");
                 });
          */
-
         return optional
                 .map(this::response)
                 .map(Header::OK).orElseGet(() ->{

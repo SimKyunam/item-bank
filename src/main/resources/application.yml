@@ -17,8 +17,8 @@ spring:
     property-naming-strategy: SNAKE_CASE
 
   datasource:
-#    url: jdbc:h2:~/test; #메모리
-    url: jdbc:h2:file:E:/_개인 개발 공부/신규 문제은행/DB/H2/bank
+    url: jdbc:h2:~/test; #메모리
+#    url: jdbc:h2:file:E:/_개인 개발 공부/신규 문제은행/DB/H2/bank
     driver-class-name: org.h2.Driver
     username: sa
     password:

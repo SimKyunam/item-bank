@@ -1,7 +1,7 @@
 package com.example.itembank.base.util;
 
 
-import com.example.itembank.model.entity.User;
+import com.example.itembank.model.entity.v1.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;

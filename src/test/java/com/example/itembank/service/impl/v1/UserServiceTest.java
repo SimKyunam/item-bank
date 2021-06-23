@@ -1,6 +1,6 @@
 package com.example.itembank.service.impl.v1;
 
-import com.example.itembank.model.entity.User;
+import com.example.itembank.model.entity.v1.User;
 import com.example.itembank.model.enumclass.UserStatus;
 import com.example.itembank.model.network.Header;
 import com.example.itembank.model.network.response.UserResponse;
@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 import java.util.List;

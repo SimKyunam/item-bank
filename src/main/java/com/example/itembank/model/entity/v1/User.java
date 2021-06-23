@@ -1,5 +1,6 @@
-package com.example.itembank.model.entity;
+package com.example.itembank.model.entity.v1;
 
+import com.example.itembank.model.entity.BaseEntity;
 import com.example.itembank.model.enumclass.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +25,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,16 +58,4 @@ public class User {
     private LocalDateTime registeredAt;
 
     private LocalDateTime unregisteredAt;
-
-    @CreatedDate
-    private LocalDateTime createdAt;
-
-    @CreatedBy
-    private String createdBy;
-
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
-
-    @LastModifiedBy
-    private String updatedBy;
 }
