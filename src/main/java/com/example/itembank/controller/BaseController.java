@@ -4,16 +4,16 @@ import com.example.itembank.base.ifs.CrudInterface;
 import com.example.itembank.model.network.Header;
 import com.example.itembank.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 @Component
-public abstract class CrudController<Req, Res, Entity> implements CrudInterface<Req, Res> {
+public abstract class BaseController<Req, Res, Entity> implements CrudInterface<Req, Res> {
 
     @Autowired(required = false)
     protected BaseService<Req, Res, Entity> baseService;

@@ -9,37 +9,27 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class UserRequest {
 
-    private Long id;
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Base {
+        private Long id;
 
-    private String account;
+        private String account;
 
-    private String password;
+        private String password;
 
-    private UserStatus status;
+        private UserStatus status;
 
-    private String role;
+        private String email;
 
-    private LocalDateTime lastLoginAt;
+        private String phoneNumber;
 
-    private LocalDateTime passwordUpdatedAt;
+        private LocalDateTime registeredAt;
 
-    private int loginFailCount;
-
-    private LocalDateTime registeredAt;
-
-    private LocalDateTime unregisteredAt;
-
-    private LocalDateTime createdAt;
-
-    private String createdBy;
-
-    private LocalDateTime updatedAt;
-
-    private String updatedBy;
+        private LocalDateTime unregisteredAt;
+    }
 }

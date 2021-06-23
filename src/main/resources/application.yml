@@ -25,3 +25,8 @@ spring:
 
 jwt:
   key: 12345678901234567890123456789012
+
+server:
+  servlet:
+    encoding:
+      force-response: true

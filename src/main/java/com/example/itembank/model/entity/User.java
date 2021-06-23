@@ -12,6 +12,9 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 
@@ -27,12 +30,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String account;
 
     private String password;
 
     @Enumerated(EnumType.STRING)
     private UserStatus status;
+
+    @Size(min = 0, max = 20)
+    private String name;
+
+    @Email
+    private String email;
+
+    private String phoneNumber;
 
     private String role;
 

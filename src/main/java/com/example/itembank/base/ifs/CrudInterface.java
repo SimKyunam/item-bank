@@ -1,8 +1,9 @@
 package com.example.itembank.base.ifs;
 
 import com.example.itembank.model.network.Header;
+import org.springframework.data.domain.Pageable;
 
-import java.awt.print.Pageable;
+
 import java.util.List;
 
 public interface CrudInterface<Req, Res> {
