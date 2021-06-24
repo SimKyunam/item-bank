@@ -8,27 +8,30 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class UserResponse {
 
-    private Long id ;
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Base{
+        private Long id ;
 
-    private String account;
+        private String account;
 
-    private String password;
+        private String password;
 
-    private UserStatus status;
+        private UserStatus status;
 
-    private String name;
+        private String name;
 
-    private String email;
+        private String email;
 
-    private String phoneNumber;
+        private String phoneNumber;
 
-    private LocalDateTime registeredAt;
+        private LocalDateTime registeredAt;
 
-    private LocalDateTime unregisteredAt;
+        private LocalDateTime unregisteredAt;
+    }
 }

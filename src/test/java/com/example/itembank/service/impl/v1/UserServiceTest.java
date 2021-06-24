@@ -54,8 +54,8 @@ class UserServiceTest {
     public void read(){
         given(userRepository.findById(10L)).willReturn(Optional.of(user));
 
-        Header<UserResponse> mockUserResponse = userService.read(10L);
-        UserResponse userResponseData = mockUserResponse.getData();
+        Header<UserResponse.Base> mockUserResponse = userService.read(10L);
+        UserResponse.Base userResponseData = mockUserResponse.getData();
 
         assertEquals(user.getName(), userResponseData.getName());
     }

@@ -4,6 +4,7 @@ import com.example.itembank.controller.BaseController;
 import com.example.itembank.model.entity.v1.User;
 import com.example.itembank.model.network.Header;
 import com.example.itembank.model.network.request.UserRequest;
+import com.example.itembank.model.network.request.UserRequest.Base;
 import com.example.itembank.model.network.response.UserResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/api/user")
 //@Validated param validation check 할 때 사용
-public class UserController extends BaseController<UserRequest, UserResponse, User> {
+public class UserController extends BaseController<UserRequest.Base, UserResponse.Base, User> {
 
 }

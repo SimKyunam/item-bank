@@ -57,7 +57,7 @@ class UserControllerTest {
 
     @Test
     public void search() throws Exception{
-        List<UserResponse> userResponseList = users.stream()
+        List<UserResponse.Base> userResponseList = users.stream()
                 .map(this::response)
                 .collect(Collectors.toList());
 
@@ -82,9 +82,9 @@ class UserControllerTest {
                 .andExpect(content().string(containsString("장그레")));
     }
 
-    public UserResponse response(User user){
+    public UserResponse.Base response(User user){
         //user -> userApiResponse
-        UserResponse userApiResponse = UserResponse.builder()
+        UserResponse.Base userApiResponse = UserResponse.Base.builder()
                 .id(user.getId())
                 .account(user.getAccount())
                 .password(user.getPassword())

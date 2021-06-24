@@ -17,13 +17,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService extends BaseService<UserRequest, UserResponse, User> {
+public class UserService extends BaseService<UserRequest.Base, UserResponse.Base, User> {
 
     @Override
-    public Header<UserResponse> create(Header<UserRequest> request) {
+    public Header<UserResponse.Base> create(UserRequest.Base request) {
 
         // 1. request data
-        UserRequest userRequest = request.getData();
+        UserRequest.Base userRequest = request;
 
         // 2. User 생성
         User user = User.builder()
@@ -43,7 +43,7 @@ public class UserService extends BaseService<UserRequest, UserResponse, User> {
     }
 
     @Override
-    public Header<UserResponse> read(Long id) {
+    public Header<UserResponse.Base> read(Long id) {
         //id -> repository getOne, getById
         Optional<User> optional = baseRepository.findById(id);
 
@@ -68,9 +68,9 @@ public class UserService extends BaseService<UserRequest, UserResponse, User> {
     }
 
     @Override
-    public Header<UserResponse> update(Header<UserRequest> request) {
+    public Header<UserResponse.Base> update(UserRequest.Base request) {
         // 1. data
-        UserRequest userRequest = request.getData();
+        UserRequest.Base userRequest = request;
 
         // 2. id -> user 데이터를 찾고
         Optional<User> optional = baseRepository.findById(userRequest.getId());
@@ -106,9 +106,9 @@ public class UserService extends BaseService<UserRequest, UserResponse, User> {
     }
 
     @Override
-    public Header<List<UserResponse>> search(Pageable pageable) {
+    public Header<List<UserResponse.Base>> search(Pageable pageable) {
         Page<User> users = baseRepository.findAll(pageable);
-        List<UserResponse> userResponseList = users.stream()
+        List<UserResponse.Base> userResponseList = users.stream()
                 .map(this::response)
                 .collect(Collectors.toList());
 
@@ -123,9 +123,9 @@ public class UserService extends BaseService<UserRequest, UserResponse, User> {
     }
 
 
-    private UserResponse response(User user){
+    private UserResponse.Base response(User user){
         //user -> userApiResponse
-        UserResponse userApiResponse = UserResponse.builder()
+        UserResponse.Base userApiResponse = UserResponse.Base.builder()
                 .id(user.getId())
                 .account(user.getAccount())
                 .password(user.getPassword())

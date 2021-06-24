@@ -1,5 +1,6 @@
 package com.example.itembank.controller;
 
+import com.example.itembank.base.ifs.ControllerInterface;
 import com.example.itembank.base.ifs.CrudInterface;
 import com.example.itembank.model.network.Header;
 import com.example.itembank.service.BaseService;
@@ -14,14 +15,14 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Component
-public abstract class BaseController<Req, Res, Entity> implements CrudInterface<Req, Res> {
+public abstract class BaseController<Req, Res, Entity> implements ControllerInterface<Req, Res> {
 
     @Autowired(required = false)
     protected BaseService<Req, Res, Entity> baseService;
 
     @Override
     @PostMapping("")
-    public Header<Res> create(@RequestBody Header<Req> request) {
+    public Header<Res> create(@RequestBody Req request) {
         return baseService.create(request);
     }
 
@@ -33,7 +34,7 @@ public abstract class BaseController<Req, Res, Entity> implements CrudInterface<
 
     @Override
     @PutMapping("")
-    public Header<Res> update(@RequestBody Header<Req> request) {
+    public Header<Res> update(@RequestBody Req request) {
         return baseService.update(request);
     }
 

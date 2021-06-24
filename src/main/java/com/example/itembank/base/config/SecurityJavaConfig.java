@@ -14,36 +14,36 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.servlet.Filter;
 
-//@Configuration
-//@EnableWebSecurity
+@Configuration
+@EnableWebSecurity
 public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
 
-//    @Value("${jwt.key}")
-//    private String secret;
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        Filter filter = new JwtAuthenticationFilter(
-//                authenticationManager(), jwtUtil());
-//
-//        http
-//                .cors().disable()
-//                .csrf().disable()
-//                .formLogin().disable()
-//                .headers().frameOptions().disable()
-//                .and()
-//                .addFilter(filter)
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//    }
-//
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-//
-//    @Bean
-//    public JwtUtil jwtUtil(){
-//        return new JwtUtil(secret);
-//    }
+    @Value("${jwt.key}")
+    private String secret;
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        Filter filter = new JwtAuthenticationFilter(
+                authenticationManager(), jwtUtil());
+
+        http
+                .cors().disable()
+                .csrf().disable()
+                .formLogin().disable()
+                .headers().frameOptions().disable()
+                .and()
+                .addFilter(filter)
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public JwtUtil jwtUtil(){
+        return new JwtUtil(secret);
+    }
 }

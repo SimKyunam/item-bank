@@ -1,7 +1,4 @@
 spring:
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
-
   profiles:
     active: local
 
@@ -37,3 +34,12 @@ server:
   servlet:
     encoding:
       force-response: true
+
+logging:
+  level:
+    root: info
+    org.springframework.web.cline: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type: trace
+  file:
+    path: logs
