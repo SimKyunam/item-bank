@@ -17,18 +17,19 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService extends BaseService<UserRequest.Base, UserResponse.Base, User> {
+public class UserService extends BaseService<UserRequest, UserResponse, User> {
 
     @Override
-    public Header<UserResponse.Base> create(Header<UserRequest.Base> request) {
+    public Header<UserResponse> create(Header<UserRequest> request) {
 
         // 1. request data
-        UserRequest.Base userRequest = request.getData();
+        UserRequest userRequest = request.getData();
 
         // 2. User 생성
         User user = User.builder()
                 .account(userRequest.getAccount())
                 .password(userRequest.getPassword())
+                .name(userRequest.getName())
                 .status(UserStatus.REGISTERED)
                 .phoneNumber(userRequest.getPhoneNumber())
                 .email(userRequest.getEmail())
@@ -42,7 +43,7 @@ public class UserService extends BaseService<UserRequest.Base, UserResponse.Base
     }
 
     @Override
-    public Header<UserResponse.Base> read(Long id) {
+    public Header<UserResponse> read(Long id) {
         //id -> repository getOne, getById
         Optional<User> optional = baseRepository.findById(id);
 
@@ -67,9 +68,9 @@ public class UserService extends BaseService<UserRequest.Base, UserResponse.Base
     }
 
     @Override
-    public Header<UserResponse.Base> update(Header<UserRequest.Base> request) {
+    public Header<UserResponse> update(Header<UserRequest> request) {
         // 1. data
-        UserRequest.Base userRequest = request.getData();
+        UserRequest userRequest = request.getData();
 
         // 2. id -> user 데이터를 찾고
         Optional<User> optional = baseRepository.findById(userRequest.getId());
@@ -105,9 +106,9 @@ public class UserService extends BaseService<UserRequest.Base, UserResponse.Base
     }
 
     @Override
-    public Header<List<UserResponse.Base>> search(Pageable pageable) {
+    public Header<List<UserResponse>> search(Pageable pageable) {
         Page<User> users = baseRepository.findAll(pageable);
-        List<UserResponse.Base> userResponseList = users.stream()
+        List<UserResponse> userResponseList = users.stream()
                 .map(this::response)
                 .collect(Collectors.toList());
 
@@ -122,9 +123,9 @@ public class UserService extends BaseService<UserRequest.Base, UserResponse.Base
     }
 
 
-    private UserResponse.Base response(User user){
+    private UserResponse response(User user){
         //user -> userApiResponse
-        UserResponse.Base userApiResponse = UserResponse.Base.builder()
+        UserResponse userApiResponse = UserResponse.builder()
                 .id(user.getId())
                 .account(user.getAccount())
                 .password(user.getPassword())

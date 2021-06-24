@@ -21,7 +21,7 @@ public abstract class BaseController<Req, Res, Entity> implements CrudInterface<
 
     @Override
     @PostMapping("")
-    public Header<Res> create(@Valid @RequestBody Header<Req> request) {
+    public Header<Res> create(@RequestBody Header<Req> request) {
         return baseService.create(request);
     }
 
@@ -33,7 +33,7 @@ public abstract class BaseController<Req, Res, Entity> implements CrudInterface<
 
     @Override
     @PutMapping("")
-    public Header<Res> update(@Valid @RequestBody Header<Req> request) {
+    public Header<Res> update(@RequestBody Header<Req> request) {
         return baseService.update(request);
     }
 

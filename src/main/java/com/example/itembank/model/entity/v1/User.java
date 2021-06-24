@@ -55,6 +55,7 @@ public class User extends BaseEntity {
 
     private int loginFailCount;
 
+    //활성화 시간?
     private LocalDateTime registeredAt;
 
     private LocalDateTime unregisteredAt;

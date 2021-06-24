@@ -17,15 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/api/user")
 //@Validated param validation check 할 때 사용
-public class UserController extends BaseController<UserRequest.Base, UserResponse.Base, User> {
+public class UserController extends BaseController<UserRequest, UserResponse, User> {
 
-    @GetMapping("test/{id}")
-    public ResponseEntity<User> testSelect(@PathVariable Long id){
-        return new ResponseEntity<User>(HttpStatus.OK);
-    }
-
-    @GetMapping("test1/{id}")
-    public Header<UserResponse.Base> test1Select(@PathVariable Long id){
-        return baseService.read(id);
-    }
 }

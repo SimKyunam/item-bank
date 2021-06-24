@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@RestControllerAdvice(basePackages = "com.example.itembank.")
+//@RestControllerAdvice(basePackages = "com.example.itembank.controller.api.v1")
 public class ApiControllerAdvice {
 
     @ExceptionHandler(value = Exception.class)

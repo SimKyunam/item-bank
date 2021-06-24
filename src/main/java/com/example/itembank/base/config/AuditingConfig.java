@@ -8,8 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Optional;
 
-@Configuration
-@EnableJpaAuditing
+//@Configuration
+//@EnableJpaAuditing
 public class AuditingConfig {
 
     @Bean
@@ -20,7 +20,8 @@ public class AuditingConfig {
     public static class AuditorAwareImpl implements AuditorAware<String>{
         @Override
         public Optional<String> getCurrentAuditor() {
-            return Optional.of(SecurityContextHolder.getContext().getAuthentication().getName());
+            return Optional.of("testAdmin");
+            //return Optional.of(SecurityContextHolder.getContext().getAuthentication().getName());
         }
     }
 }

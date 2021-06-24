@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@SuppressWarnings("unchecked")
 public class Header<T> {
 
     // api 통신시간
@@ -24,7 +25,7 @@ public class Header<T> {
     // api 부가 설명
     private String description;
 
-    @Valid
+//  @Valid
     private T data;
 
     // pagination
