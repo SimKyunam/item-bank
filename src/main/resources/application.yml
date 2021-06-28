@@ -10,7 +10,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       #ddl-auto: none / create-drop / create / update / validate
     properties:
       hibernate:
@@ -42,4 +42,4 @@ logging:
     org.hibernate.SQL: DEBUG
     org.hibernate.type: trace
   file:
-    path: logs
+    path: /logs
