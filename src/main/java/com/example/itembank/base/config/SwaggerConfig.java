@@ -83,6 +83,4 @@ public class SwaggerConfig implements WebMvcConfigurer {
         authorizationScopes[0] = authorizationScope;
         return Arrays.asList(new SecurityReference("JWT", authorizationScopes));
     }
-
-
 }

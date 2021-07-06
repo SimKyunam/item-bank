@@ -5,6 +5,9 @@ import com.example.itembank.base.ifs.CrudInterface;
 import com.example.itembank.model.network.Header;
 import com.example.itembank.service.BaseService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -15,6 +18,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@ApiResponses({
+    @ApiResponse(code = 200, message = "OK"),
+    @ApiResponse(code = 500, message = "ERROR")
+})
 @Component
 public abstract class BaseController<Req, Res, Entity> implements ControllerInterface<Req, Res> {
 
@@ -31,7 +38,10 @@ public abstract class BaseController<Req, Res, Entity> implements ControllerInte
     @Override
     @ApiOperation(value = "데이터 상세조회", notes = "도메인 데이터를 상세조회 합니다.")
     @GetMapping("{id}")
-    public Header<Res> read(@PathVariable Long id) {
+    public Header<Res> read(
+            @ApiParam(value="고유아이디", required = true, example = "1")
+            @PathVariable Long id
+    ) {
         return baseService.read(id);
     }
 
@@ -45,7 +55,10 @@ public abstract class BaseController<Req, Res, Entity> implements ControllerInte
     @Override
     @ApiOperation(value = "데이터 삭제", notes = "도메인 데이터를 삭제합니다.")
     @DeleteMapping("{id}")
-    public Header delete(@PathVariable Long id) {
+    public Header delete(
+            @ApiParam(value="고유아이디", required = true, example = "1")
+            @PathVariable Long id
+    ){
         return baseService.delete(id);
     }
 
