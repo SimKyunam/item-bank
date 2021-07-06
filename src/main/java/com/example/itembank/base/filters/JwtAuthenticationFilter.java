@@ -47,10 +47,10 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             return null;
         }
 
-        Claims claims = jwtUtil.getClaims(token.substring("Bearer ".length()));
-
+        Claims claims = jwtUtil.getClaims(token.replaceAll("^Bearer( )*", ""));
         Authentication authentication =
-                new UsernamePasswordAuthenticationToken(claims, null);
+                new UsernamePasswordAuthenticationToken(claims.get("user"), null);
+
         return authentication;
     }
 }

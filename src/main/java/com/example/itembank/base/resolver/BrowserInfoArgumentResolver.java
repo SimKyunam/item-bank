@@ -15,8 +15,9 @@ public class BrowserInfoArgumentResolver implements HandlerMethodArgumentResolve
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        boolean isBrowserInfoAnnotation = parameter.getParameterAnnotation(BrowserInfo.class) != null;
-        return isBrowserInfoAnnotation;
+        boolean isBrowserInfoAnnotation = parameter.getParameterAnnotation(BrowserInfo.class) != null; //컨트롤러에 파라미터 어노테이션 체크
+        boolean isStringType = parameter.getParameterType().equals(String.class); //파라미터에 타입 체크
+        return isBrowserInfoAnnotation && isStringType;
     }
 
     @Override

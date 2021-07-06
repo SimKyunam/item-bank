@@ -10,7 +10,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       #ddl-auto: none / create-drop / create / update / validate
     properties:
       hibernate:
@@ -21,8 +21,8 @@ spring:
     property-naming-strategy: SNAKE_CASE
 
   datasource:
-    url: jdbc:h2:~/test; #메모리
-#    url: jdbc:h2:file:E:/_개인 개발 공부/신규 문제은행/DB/H2/bank
+#    url: jdbc:h2:~/test; #메모리
+    url: jdbc:h2:file:E:/_개인 개발 공부/신규 문제은행/DB/H2/bank #파일저장
     driver-class-name: org.h2.Driver
     username: sa
     password:
@@ -37,9 +37,40 @@ server:
 
 logging:
   level:
-    root: info
+#    root: info
     org.springframework.web.cline: DEBUG
     org.hibernate.SQL: DEBUG
-    org.hibernate.type: trace
+#    org.hibernate.type: trace
   file:
     path: /logs
+
+
+---
+# 로컬
+spring:
+  config:
+    activate:
+      on-profile: local
+
+server:
+  port: 8080
+
+---
+# 개발
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+server:
+  port: 9090
+
+---
+# 배포
+spring:
+  config:
+    activate:
+      on-profile: release
+
+server:
+  port: 9000

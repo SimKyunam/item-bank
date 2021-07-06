@@ -27,14 +27,20 @@ public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
                 authenticationManager(), jwtUtil());
 
         http
-                .cors().disable()
-                .csrf().disable()
-                .formLogin().disable()
-                .headers().frameOptions().disable()
-                .and()
-                .addFilter(filter)
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+            .cors().and().csrf().disable()
+            .formLogin().disable()
+            .authorizeRequests()
+            .antMatchers(
+                    "/exception/**"
+                    , "/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**"
+            ).permitAll()
+            .anyRequest().authenticated()
+//            .and()
+//            .headers().frameOptions().disable()
+            .and()
+            .addFilter(filter)
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Bean

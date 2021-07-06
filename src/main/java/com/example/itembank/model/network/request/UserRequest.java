@@ -1,6 +1,7 @@
 package com.example.itembank.model.network.request;
 
 import com.example.itembank.model.enumclass.UserStatus;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +16,7 @@ public class UserRequest{
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Base{
+
         private Long id;
 
         private String account;

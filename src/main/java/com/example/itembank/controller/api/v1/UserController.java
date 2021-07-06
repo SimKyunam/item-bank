@@ -7,22 +7,17 @@ import com.example.itembank.model.network.Header;
 import com.example.itembank.model.network.request.UserRequest;
 import com.example.itembank.model.network.request.UserRequest.Base;
 import com.example.itembank.model.network.response.UserResponse;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@Api(tags = {"1. User"})
 @Slf4j
 @RestController
 @RequestMapping("/v1/api/user")
 //@Validated param validation check 할 때 사용
 public class UserController extends BaseController<UserRequest.Base, UserResponse.Base, User> {
 
-    @GetMapping("/browser")
-    public String getBrowser(@BrowserInfo String clineInfo){
-        return clineInfo;
-    }
 }
