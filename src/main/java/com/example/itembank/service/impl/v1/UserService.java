@@ -1,6 +1,6 @@
 package com.example.itembank.service.impl.v1;
 
-import com.example.itembank.model.entity.v1.User;
+import com.example.itembank.model.entity.User;
 import com.example.itembank.model.enumclass.UserStatus;
 import com.example.itembank.model.network.Header;
 import com.example.itembank.model.network.Pagination;
@@ -121,6 +121,7 @@ public class UserService extends BaseService<UserRequest.Base, UserResponse.Base
 
         return Header.OK(userResponseList, pagination);
     }
+
 
 
     private UserResponse.Base response(User user){

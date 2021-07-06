@@ -1,7 +1,7 @@
 package com.example.itembank.repository;
 
 import com.example.itembank.ItemBankApplicationTests;
-import com.example.itembank.model.entity.v1.User;
+import com.example.itembank.model.entity.User;
 import com.example.itembank.model.enumclass.UserStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

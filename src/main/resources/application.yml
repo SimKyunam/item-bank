@@ -2,11 +2,6 @@ spring:
   profiles:
     active: local
 
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-
   jpa:
     show-sql: true
     hibernate:
@@ -20,16 +15,6 @@ spring:
   jackson:
     property-naming-strategy: SNAKE_CASE
 
-  datasource:
-#    url: jdbc:h2:~/test; #메모리
-    url: jdbc:h2:file:E:/_개인 개발 공부/신규 문제은행/DB/H2/bank #파일저장
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-
-jwt:
-  key: 12345678901234567890123456789012
-
 server:
   servlet:
     encoding:
@@ -40,7 +25,7 @@ logging:
 #    root: info
     org.springframework.web.cline: DEBUG
     org.hibernate.SQL: DEBUG
-#    org.hibernate.type: trace
+    org.hibernate.type: trace
   file:
     path: /logs
 
@@ -52,8 +37,23 @@ spring:
     activate:
       on-profile: local
 
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  datasource:
+    #    url: jdbc:h2:~/test; #메모리
+    url: jdbc:h2:file:./memoryDb #상대경로 파일저장(memoryDb.mv.db)
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
 server:
   port: 8080
+
+jwt:
+  key: 12345678901234567890123456789012
 
 ---
 # 개발

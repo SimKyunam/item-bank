@@ -58,7 +58,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
         return new ApiInfoBuilder()
                 .title("문제은행 API 타이틀")
                 .description("API 상세소개 및 사용법 등")
-                .contact(new Contact("심규남", "", "skn@futurenuri.com"))
+                .contact(new Contact("심규남", "milenote.tistory.com", "skn@futurenuri.com"))
                 .version("1.0")
                 .build();
     }

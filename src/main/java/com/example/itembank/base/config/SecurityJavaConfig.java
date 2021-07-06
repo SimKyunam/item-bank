@@ -2,10 +2,12 @@ package com.example.itembank.base.config;
 
 import com.example.itembank.base.filters.JwtAuthenticationFilter;
 import com.example.itembank.base.util.JwtUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -22,9 +24,15 @@ public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
     private String secret;
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         Filter filter = new JwtAuthenticationFilter(
-                authenticationManager(), jwtUtil());
+                authenticationManager(), jwtUtil()
+        );
 
         http
             .cors().and().csrf().disable()
@@ -32,15 +40,18 @@ public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers(
                     "/exception/**"
-                    , "/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**"
+                    , "/authenticate"
             ).permitAll()
             .anyRequest().authenticated()
+            .and().exceptionHandling()
 //            .and()
 //            .headers().frameOptions().disable()
             .and()
             .addFilter(filter)
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+//        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
