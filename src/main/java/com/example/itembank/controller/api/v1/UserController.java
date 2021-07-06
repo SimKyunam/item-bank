@@ -8,7 +8,7 @@ import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-@Api(tags = {"1. User"})
+@Api(tags = {"1. 사용자 [Table - User]"})
 @Slf4j
 @RestController
 @RequestMapping("/v1/api/user")

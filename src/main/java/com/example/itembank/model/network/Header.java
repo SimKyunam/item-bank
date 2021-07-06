@@ -22,6 +22,9 @@ public class Header<T> {
     // api 응답 코드
     private String resultCode;
 
+    // api 응답 내용
+    private String resultReasonPhrase;
+
     // api 부가 설명
     private String description;
 
@@ -35,7 +38,8 @@ public class Header<T> {
     public static <T> Header<T> OK(){
         return (Header<T>) Header.builder()
                 .transactionTime(LocalDateTime.now())
-                .resultCode(HttpStatus.OK.toString())
+                .resultCode(String.valueOf(HttpStatus.OK.value()))
+                .resultReasonPhrase(HttpStatus.OK.getReasonPhrase())
                 .description(HttpStatus.OK.toString())
                 .build();
     }
@@ -45,7 +49,8 @@ public class Header<T> {
     public static <T> Header<T> OK(T data){
         return (Header<T>)Header.builder()
                 .transactionTime(LocalDateTime.now())
-                .resultCode(HttpStatus.OK.toString())
+                .resultCode(String.valueOf(HttpStatus.OK.value()))
+                .resultReasonPhrase(HttpStatus.OK.getReasonPhrase())
                 .description(HttpStatus.OK.toString())
                 .data(data)
                 .build();
@@ -54,7 +59,8 @@ public class Header<T> {
     public static <T> Header<T> OK(T data, Pagination pagination){
         return (Header<T>)Header.builder()
                 .transactionTime(LocalDateTime.now())
-                .resultCode(HttpStatus.OK.toString())
+                .resultCode(String.valueOf(HttpStatus.OK.value()))
+                .resultReasonPhrase(HttpStatus.OK.getReasonPhrase())
                 .description(HttpStatus.OK.toString())
                 .data(data)
                 .pagination(pagination)
@@ -65,7 +71,8 @@ public class Header<T> {
     public static <T> Header<T> ERROR(String description){
         return (Header<T>)Header.builder()
                 .transactionTime(LocalDateTime.now())
-                .resultCode(HttpStatus.INTERNAL_SERVER_ERROR.toString())
+                .resultCode(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()))
+                .resultReasonPhrase(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
                 .description(description)
                 .build();
     }
