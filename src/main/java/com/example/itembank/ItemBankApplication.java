@@ -1,11 +1,9 @@
 package com.example.itembank;
 
-import com.example.itembank.base.annotation.common.BrowserInfo;
 import com.example.itembank.base.resolver.BrowserInfoArgumentResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;

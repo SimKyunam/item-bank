@@ -2,7 +2,6 @@ package com.example.itembank.base.config;
 
 import com.example.itembank.base.filters.JwtAuthenticationFilter;
 import com.example.itembank.base.util.JwtUtil;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,7 +39,7 @@ public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers(
                     "/exception/**"
-                    , "/authenticate", "/h2-console/**"
+                    , "/auth/**", "/h2-console/**"
             ).permitAll()
             .anyRequest().authenticated()
             .and().exceptionHandling()

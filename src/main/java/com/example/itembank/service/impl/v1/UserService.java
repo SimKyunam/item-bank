@@ -1,41 +1,40 @@
 package com.example.itembank.service.impl.v1;
 
 import com.example.itembank.model.entity.User;
-import com.example.itembank.model.enumclass.UserStatus;
 import com.example.itembank.model.network.Header;
 import com.example.itembank.model.network.Pagination;
 import com.example.itembank.model.network.request.UserRequest;
 import com.example.itembank.model.network.response.UserResponse;
+import com.example.itembank.repository.UserRepository;
 import com.example.itembank.service.BaseService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Service;
-
 import org.springframework.data.domain.Pageable;
-import java.time.LocalDateTime;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class UserService extends BaseService<UserRequest.Base, UserResponse.Base, User> {
 
-    @Override
-    public Header<UserResponse.Base> create(UserRequest.Base request) {
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-        // 1. request data
-        UserRequest.Base userRequest = request;
+    @Override
+    @Transactional
+    public Header<UserResponse.Base> create(UserRequest.Base request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new RuntimeException("이미 가입되어 있는 유저입니다");
+        }
+        // 1. requestDto -> User
+        User user = new User().dtoToEntityAndPwdEncoder(request, passwordEncoder);
 
         // 2. User 생성
-        User user = User.builder()
-                .account(userRequest.getAccount())
-                .password(userRequest.getPassword())
-                .name(userRequest.getName())
-                .status(UserStatus.REGISTERED)
-                .phoneNumber(userRequest.getPhoneNumber())
-                .email(userRequest.getEmail())
-                .registeredAt(LocalDateTime.now())
-                .build();
-
         User newUser = baseRepository.save(user);
 
         // 3. 생성된 데이터 -> UserApiResponse return
@@ -47,19 +46,6 @@ public class UserService extends BaseService<UserRequest.Base, UserResponse.Base
         //id -> repository getOne, getById
         Optional<User> optional = baseRepository.findById(id);
 
-        //user -> userApiResponse return
-        /* 해당 메소드가 :: 표기법으로 표시하면 아래로 변경
-        return optional
-                .map(user -> {
-                    return response(user);
-                })
-                .map(response->{
-                    return Header.OK(response);
-                })
-                .orElseGet(() ->{
-                    return Header.ERROR("데이터 없음");
-                });
-         */
         return optional
                 .map(this::response)
                 .map(Header::OK).orElseGet(() ->{

@@ -1,5 +1,6 @@
 package com.example.itembank.model.network.response;
 
+import com.example.itembank.model.enumclass.Authority;
 import com.example.itembank.model.enumclass.UserStatus;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -34,9 +35,13 @@ public class UserResponse {
         @NotEmpty
         private String password;
 
-        @ApiModelProperty(value = "사용자상태", required = true, example = "REGISTERED")
+        @ApiModelProperty(value = "등록상태", required = true, example = "REGISTERED")
         @NotEmpty
         private UserStatus status;
+
+        @ApiModelProperty(value = "권한", required = true, example = "ROLE_USER")
+        @NotEmpty
+        private Authority authority;
 
         @ApiModelProperty(value = "이름", required = true, example = "홍길동")
         @NotEmpty
@@ -56,5 +61,4 @@ public class UserResponse {
         @ApiModelProperty(value = "해제일", hidden = true)
         private LocalDateTime unregisteredAt;
     }
-
 }
