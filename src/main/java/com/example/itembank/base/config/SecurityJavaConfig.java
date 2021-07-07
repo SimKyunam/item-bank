@@ -31,7 +31,7 @@ public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         Filter filter = new JwtAuthenticationFilter(
-                authenticationManager(), jwtUtil()
+            authenticationManager(), jwtUtil()
         );
 
         http
@@ -40,18 +40,14 @@ public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers(
                     "/exception/**"
-                    , "/authenticate"
+                    , "/authenticate", "/h2-console/**"
             ).permitAll()
             .anyRequest().authenticated()
             .and().exceptionHandling()
-//            .and()
-//            .headers().frameOptions().disable()
-            .and()
-            .addFilter(filter)
+            .and().headers().frameOptions().disable() // 없으면 h2 console 안됌
+            .and().addFilter(filter)
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-//        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean

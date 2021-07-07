@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @ServletComponentScan
 @SpringBootApplication
-public class ItemBankApplication extends WebMvcConfigurationSupport {
+public class ItemBankApplication extends WebMvcConfigurationSupport{
 
     private final BrowserInfoArgumentResolver browserInfoArgumentResolver;
 

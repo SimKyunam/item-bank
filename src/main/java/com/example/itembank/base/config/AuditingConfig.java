@@ -1,5 +1,6 @@
 package com.example.itembank.base.config;
 
+import com.example.itembank.model.entity.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -20,8 +21,8 @@ public class AuditingConfig {
     public static class AuditorAwareImpl implements AuditorAware<String>{
         @Override
         public Optional<String> getCurrentAuditor() {
-            //return Optional.of("testAdmin");
-            return Optional.of(SecurityContextHolder.getContext().getAuthentication().getName());
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal(); //토큰에 User 객체 반환
+            return Optional.of(user.getAccount());
         }
     }
 }
