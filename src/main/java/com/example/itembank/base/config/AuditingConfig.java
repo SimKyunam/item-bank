@@ -21,8 +21,12 @@ public class AuditingConfig {
     public static class AuditorAwareImpl implements AuditorAware<String>{
         @Override
         public Optional<String> getCurrentAuditor() {
-            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal(); //토큰에 User 객체 반환
-            return Optional.of(user.getAccount());
+            if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof User){
+                User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal(); //토큰에 User 객체 반환
+                return Optional.of(user.getAccount());
+            }else{
+                return Optional.empty();
+            }
         }
     }
 }

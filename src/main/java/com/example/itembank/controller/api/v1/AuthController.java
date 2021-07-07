@@ -4,6 +4,7 @@ import com.example.itembank.model.network.Header;
 import com.example.itembank.model.network.request.TokenRequest;
 import com.example.itembank.model.network.request.UserRequest;
 import com.example.itembank.model.network.response.TokenResponse;
+import com.example.itembank.model.network.response.UserResponse;
 import com.example.itembank.service.impl.v1.AuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,6 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;
+
+    @ApiOperation(value = "회원가입", notes = "사용자 등록을 합니다.")
+    @PostMapping("/signup")
+    public Header<UserResponse.Base> signup(@RequestBody UserRequest.Base request) {
+        return authService.signup(request);
+    }
 
     @ApiOperation(value = "로그인", notes = "로그인하여, 토큰을 생성합니다.")
     @PostMapping("/login")

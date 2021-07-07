@@ -3,11 +3,14 @@ package com.example.itembank.service.impl.v1;
 import com.example.itembank.base.util.JwtUtil;
 import com.example.itembank.model.entity.RefreshToken;
 import com.example.itembank.model.entity.User;
+import com.example.itembank.model.enumclass.Authority;
 import com.example.itembank.model.network.Header;
 import com.example.itembank.model.network.request.TokenRequest;
 import com.example.itembank.model.network.request.UserRequest;
 import com.example.itembank.model.network.response.TokenResponse;
+import com.example.itembank.model.network.response.UserResponse;
 import com.example.itembank.repository.RefreshTokenRepository;
+import com.example.itembank.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -24,12 +27,30 @@ public class AuthService {
     private final JwtUtil jwtUtil;
     private final RefreshTokenRepository refreshTokenRepository;
 
+    private final UserRepository userRepository;
+
+    @Transactional
+    public Header<UserResponse.Base> signup(UserRequest.Base request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new RuntimeException("이미 가입되어 있는 유저입니다");
+        }
+        // 1. requestDto -> User
+        User user = new User().dtoToEntityAndPwdEncoder(request, passwordEncoder);
+
+        // 2. User 생성
+        User newUser = userRepository.save(user);
+
+        // 3. 생성된 데이터 -> UserApiResponse return
+        return Header.OK(User.response(newUser));
+    }
+
     @Transactional
     public Header<TokenResponse> login(UserRequest.Auth userRequest) {
 
         User user = User.builder()
                 .email(userRequest.getEmail())
-                .password(passwordEncoder.encode(userRequest.getPassword()))
+                .password(userRequest.getPassword())
+                .authority(Authority.ROLE_USER)
                 .build();
 
         // 1. Login ID/PW 를 기반으로 AuthenticationToken 생성
@@ -39,6 +60,7 @@ public class AuthService {
         //    authenticate 메서드가 실행이 될 때 CustomUserDetailsService 에서 만들었던 loadUserByUsername 메서드가 실행됨
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
+        // TODO: 토큰 발행 에러
         // 3. 인증 정보를 기반으로 JWT 토큰 생성
         TokenResponse tokenDto = jwtUtil.generateTokenDto(authentication);
 

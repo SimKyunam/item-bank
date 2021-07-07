@@ -26,7 +26,7 @@ public class UserService extends BaseService<UserRequest.Base, UserResponse.Base
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    @Transactional
+    @Deprecated
     public Header<UserResponse.Base> create(UserRequest.Base request) {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("이미 가입되어 있는 유저입니다");
@@ -38,7 +38,7 @@ public class UserService extends BaseService<UserRequest.Base, UserResponse.Base
         User newUser = baseRepository.save(user);
 
         // 3. 생성된 데이터 -> UserApiResponse return
-        return Header.OK(this.response(newUser));
+        return Header.OK(User.response(newUser));
     }
 
     @Override
@@ -47,7 +47,7 @@ public class UserService extends BaseService<UserRequest.Base, UserResponse.Base
         Optional<User> optional = baseRepository.findById(id);
 
         return optional
-                .map(this::response)
+                .map(User::response)
                 .map(Header::OK).orElseGet(() ->{
                     return Header.ERROR("데이터 없음");
                 });
@@ -73,7 +73,7 @@ public class UserService extends BaseService<UserRequest.Base, UserResponse.Base
             return user;
         })
         .map(user -> baseRepository.save(user))
-        .map(this::response)
+        .map(User::response)
         .map(Header::OK)
         .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
@@ -95,7 +95,7 @@ public class UserService extends BaseService<UserRequest.Base, UserResponse.Base
     public Header<List<UserResponse.Base>> search(Pageable pageable) {
         Page<User> users = baseRepository.findAll(pageable);
         List<UserResponse.Base> userResponseList = users.stream()
-                .map(this::response)
+                .map(User::response)
                 .collect(Collectors.toList());
 
         Pagination pagination = Pagination.builder()
@@ -106,25 +106,5 @@ public class UserService extends BaseService<UserRequest.Base, UserResponse.Base
                 .build();
 
         return Header.OK(userResponseList, pagination);
-    }
-
-
-
-    private UserResponse.Base response(User user){
-        //user -> userApiResponse
-        UserResponse.Base userApiResponse = UserResponse.Base.builder()
-                .id(user.getId())
-                .account(user.getAccount())
-                .password(user.getPassword())
-                .name(user.getName())
-                .email(user.getEmail())
-                .phoneNumber(user.getPhoneNumber())
-                .status(user.getStatus())
-                .registeredAt(user.getRegisteredAt())
-                .unregisteredAt(user.getUnregisteredAt())
-                .build();
-
-        // Header + data return
-        return userApiResponse;
     }
 }

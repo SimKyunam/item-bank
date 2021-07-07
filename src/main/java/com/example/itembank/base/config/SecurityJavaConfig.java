@@ -2,9 +2,13 @@ package com.example.itembank.base.config;
 
 import com.example.itembank.base.filters.JwtAuthenticationFilter;
 import com.example.itembank.base.util.JwtUtil;
+import com.example.itembank.service.impl.v1.CustomUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,6 +23,9 @@ import javax.servlet.Filter;
 @EnableWebSecurity
 public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private CustomUserDetailsService userDetailsService;
+
     @Value("${jwt.key}")
     private String secret;
 
@@ -26,6 +33,12 @@ public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**");
     }
+
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+//        auth.inMemoryAuthentication().withUser("user").password("password").roles("SUPER", "BASIC");
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -52,6 +65,14 @@ public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(userDetailsService);
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        return authenticationProvider;
     }
 
     @Bean

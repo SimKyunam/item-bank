@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,8 +24,11 @@ class UserServiceTest {
 
     private UserService userService;
 
-    @Mock
+    @MockBean
     private UserRepository userRepository;
+
+    @MockBean
+    private PasswordEncoder passwordEncoder;
 
     //기초데이터 설정
     List<User> users;
@@ -34,8 +39,7 @@ class UserServiceTest {
     public void setUp(){
         MockitoAnnotations.openMocks(this);
 
-        userService = new UserService();
-        userService.setBaseRepository(userRepository);
+        userService = new UserService(userRepository, passwordEncoder);
 
         //------------데이터 세팅------------
         users = Arrays.asList(

@@ -22,10 +22,13 @@ server:
 
 logging:
   level:
-#    root: info
-    org.springframework.web.cline: DEBUG
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type: trace
+    root: info
+    sql: error
+    jdbc: off
+    jdbc.sqlonly: debug
+    org.springframework.web: DEBUG
+#    org.hibernate.SQL: DEBUG
+#    org.hibernate.type: trace
   file:
     path: /logs
 
