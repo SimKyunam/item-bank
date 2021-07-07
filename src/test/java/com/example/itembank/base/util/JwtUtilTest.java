@@ -22,15 +22,17 @@ class JwtUtilTest {
     @Test
     public void createToken(){
         User user = User.builder()
-                .id(1004L)
+                .id(1L)
                 .name("John")
                 .password("1111")
                 .account("John")
                 .build();
 
         String token = jwtUtil.createToken(user);
+        System.out.println("------------------------------------------------------------------------------");
+        System.out.println("token value : " + token);
+        System.out.println("------------------------------------------------------------------------------");
 
-        assertEquals(token, "a");
         assertTrue(token.contains("."));
     }
 
