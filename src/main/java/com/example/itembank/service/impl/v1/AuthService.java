@@ -27,7 +27,11 @@ public class AuthService {
     @Transactional
     public Header<TokenResponse> login(UserRequest.Auth userRequest) {
 
-        User user = new User().dtoToEntityAndPwdEncoder(userRequest, passwordEncoder);
+        User user = User.builder()
+                .email(userRequest.getEmail())
+                .password(passwordEncoder.encode(userRequest.getPassword()))
+                .build();
+
         // 1. Login ID/PW 를 기반으로 AuthenticationToken 생성
         UsernamePasswordAuthenticationToken authenticationToken = user.toAuthentication();
 

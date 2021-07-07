@@ -26,7 +26,7 @@ public class AuthController {
         return authService.login(request);
     }
 
-    @ApiOperation(value = "데이터 생성", notes = "도메인 데이터를 생성합니다.")
+    @ApiOperation(value = "토큰 재생성", notes = "토큰 재발행 시간을 통해 다시 토큰을 발급합니다.")
     @PostMapping("/reissue")
     public Header<TokenResponse> reissue(@RequestBody TokenRequest request) {
         return authService.reissue(request);
