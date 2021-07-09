@@ -64,19 +64,18 @@ public class JwtUtil {
         long now = (new Date()).getTime();
 
         // Access Token 생성
-        //String accessToken = this.createToken(user);
         Date accessTokenExpiresIn = new Date(now + TOKEN_VALID_TIME);
         String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())       // payload "sub": "name"
                 .claim(AUTHORITIES_KEY, authorities)        // payload "auth": "ROLE_USER"
                 .setExpiration(accessTokenExpiresIn)        // payload "exp": 1516239022 (예시)
-                .signWith(key, SignatureAlgorithm.HS512)    // header "alg": "HS512"
+                .signWith(key, SignatureAlgorithm.HS256)    // header "alg": "HS512"
                 .compact();
 
         // Refresh Token 생성
         String refreshToken = Jwts.builder()
                 .setExpiration(new Date(now + REFRESH_TOKEN_EXPIRE_TIME))
-                .signWith(key, SignatureAlgorithm.HS512)
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
 
         return TokenResponse.builder()
